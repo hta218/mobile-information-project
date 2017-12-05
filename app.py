@@ -5,6 +5,8 @@ import datetime
 
 app = Flask(__name__)
 
+app.secret_key = 'fuck this dummy stupid bitch secret key'
+
 mlab.connect()
 
 class Data(Document):
