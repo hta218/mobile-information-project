@@ -2,8 +2,14 @@ from flask import *
 import mlab
 from mongoengine import *
 import datetime
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
+
+app.config['MONGO_DBNAME'] = "goficer"
+app.config['MONGO_URI'] = 'mongodb://admin:admin@ds241395.mlab.com:41395/goficer'
+
+mongo = PyMongo(app)
 
 app.config['SECRET_KEY'] = 'azmnamqka'
 

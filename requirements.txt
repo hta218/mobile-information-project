@@ -16,3 +16,4 @@ mock
 gevent
 gunicorn
 mongoengine
+flask_pymongo
