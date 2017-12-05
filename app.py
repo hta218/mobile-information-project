@@ -5,7 +5,7 @@ import datetime
 
 app = Flask(__name__)
 
-app.secret_key = 'abrakadabra'
+app.secret_key = 'azmnamqka'
 
 mlab.connect()
 
@@ -66,8 +66,8 @@ def adddata():
         )
 
         data.save()
-        data_list = Data.objects()
-        return render_template('admin.html', data_list=data_list)
+        # data_list = Data.objects()
+        return redirect('/admin')
 
 
 @app.route('/delete-data/<data_id>')
