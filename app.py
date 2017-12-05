@@ -5,7 +5,7 @@ import datetime
 
 app = Flask(__name__)
 
-app.secret_key = 'fuck this dummy stupid bitch secret key'
+app.secret_key = 'abrakadabra'
 
 mlab.connect()
 
