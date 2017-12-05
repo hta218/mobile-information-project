@@ -16,5 +16,3 @@ mock
 gevent
 gunicorn
 mongoengine
-datetime
-pymongo
