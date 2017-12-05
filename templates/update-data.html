@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css.map"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+    <script type="text/javascript" src="/static/lib/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Update data</title>
+  </head>
+  <body>
+    {% include('partial/header.html') %}
+
+    <div class="container" style="margin-top: 100px;">
+      <h1 class="font-weight-bold text-info my-4">Update data</h1>
+    </div>
+
+    <div class="container ">
+      <form class="" action="/update-data/{{data.id}}" method="post">
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <label>Time</label>
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker'>
+                <input type='text'
+                  name="time"
+                  class="form-control"
+                  placeholder="{{data.time}}"
+                  value="{{data.time}}"
+                  required/>
+                  <span class="input-group-addon" id="pick-time">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label>Location</label>
+            <input type="text" class="form-control" placeholder="Location" name="location" value="{{data.location}}" required>
+          </div>
+          <div class="col-md-4">
+            <label>Weather Condition</label>
+            <input type="text" class="form-control" placeholder="Weather Condition" name="weather" value="{{data.weather}}" required>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-3">
+            <label>Temperature (*C)</label>
+            <input type="text" class="form-control" placeholder="temperature" name="temperature" value="{{data.temperature}}" required>
+          </div>
+          <div class="col-md-3">
+            <label>Wind speed (km/h)</label>
+            <input type="text" class="form-control" placeholder="wind speed" name="wind_speed" value="{{data.wind_speed}}" required>
+          </div>
+          <div class="col-md-3">
+            <label>Humidity (%)</label>
+            <input type="text" class="form-control" placeholder="humidity" name="humidity" value="{{data.humidity}}" required>
+          </div>
+          <div class="col-md-3">
+            <label>Rainfall (mm/h)</label>
+            <input type="text" class="form-control" placeholder="Rainfall" name="rainfall" value="{{data.rainfall}}" required>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <label>Sunrise Time</label>
+            <div class='input-group date' id='sunrise-time-picker'>
+              <input type='text'
+                name="sunrise_time"
+                placeholder="Sunrise Time hh:mm (AM/PM)"
+                class="form-control"
+                value="{{data.sunrise_time}}"
+                required/>
+              <span class="input-group-addon">
+                <span class="fa fa-clock-o"></span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label>Sunset Time</label>
+            <div class="form-group">
+              <div class='input-group date' id='sunset-time-picker'>
+                <input type='text'
+                  name="sunset_time"
+                  placeholder="Sunset Time hh:mm (AM/PM)"
+                  class="form-control"
+                  value="{{data.sunset_time}}"
+                  required/>
+                <span class="input-group-addon">
+                  <span class="fa fa-clock-o"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group float-right mt-4">
+          <a class ="btn btn-primary" href="/admin">Cancel</a>
+          <button type="submit" name="button" class="btn btn-success">Update<i class="fa fa-refresh ml-3"></i></button>
+        </div>
+      </form>
+    </div>
+
+    {% include('partial/footer.html') %}
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var time = $("input[name='time']").attr('value');
+        $("input[name='time']").val(time);
+        $('#pick-time').click(function() {
+          $('#datetimepicker').datetimepicker();
+        })
+      });
+      $(function () {
+          $('#sunrise-time-picker').datetimepicker({
+            format: 'LT'
+          });
+      });
+      $(function () {
+          $('#sunset-time-picker').datetimepicker({
+            format: 'LT'
+          });
+      });
+    </script>
+  </body>
+</html>

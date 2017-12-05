@@ -1,0 +1,16 @@
+.container {
+  position: absolute;
+  margin-left: 200px;
+  margin-top: 75px;
+}
+
+h1 {
+  margin: 15px 0px;
+}
+
+#add-data {
+  bottom: -10px;
+  position: absolute;
+  bottom: -40px;
+  right: 15px;
+}

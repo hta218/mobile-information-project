@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/lib/weather-icons/css/weather-icons.min.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <title>Admin page</title>
+  </head>
+  <body>
+
+    {% include('partial/header.html') %}
+
+    <div class="container">
+      <h1 class="font-weight-bold text-info mb-5 mt-3">Weather Information Management System</h1>
+      <table class="table table-striped table-hover mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-center" title="Time"><i class="wi wi-time-10"></i></th>
+            <th scope="col" title="Location"><i class="fa fa-map-marker"></i></th>
+            <th scope="col" title="Temperature"><i class="wi wi-thermometer"></i> (*C)</th>
+            <th scope="col" title="Weather Condition"><i class="wi wi-day-snow-thunderstorm"></i></th>
+            <th scope="col" title="Wind Speed"><i class="wi wi-wind-beaufort-10"></i> (km/h)</th>
+            <th scope="col" title="Humidity"><i class="wi wi-humidity"></i> (%)</th>
+            <th scope="col" title="Rainfall"><i class="wi wi-raindrops"></i> (mm/h)</th>
+            <th scope="col" title="Sunrise Time"><i class="wi wi-day-sunny"></i> (AM)</th>
+            <th scope="col" title="Sunset Time"><i class="wi wi-horizon"></i> (PM)</th>
+            <th scope="col" title="Actions"><i class="fa fa-cogs"></i></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for data in data_list %}
+            {% set bad_weathers = ['heavy rain', 'flood', 'whirlwind', 'heil'] %}
+            {% set temp = data.temperature %}
+            {% set weather = data.weather.lower() %}
+
+            {% if temp > 35 or temp < 5 or weather in bad_weathers %}
+              <tr class="bg-warning" title="Warning: dangerous weather !">
+            {% else %}
+              <tr>
+            {% endif %}
+              <td scope="row">{{loop.index}}</td>
+              <td>{{data.time}}</td>
+              <td>{{data.location}}</td>
+              <td>{{data.temperature}} *C</td>
+              <td>{{data.weather}}</td>
+              <td>{{data.wind_speed}} km/h</td>
+              <td>{{data.humidity}}%</td>
+              <td>{{data.rainfall}} mm/h</td>
+              <td>{{data.sunrise_time}}</td>
+              <td>{{data.sunset_time}}</td>
+              <td>
+                <a href="/update-data/{{data.id}}">
+                  <span><i class="fa fa-pencil fa-lg text-success" title="Update this record"></i></span>
+                </a>
+                <span>
+                  <i
+                    class="fa fa-trash fa-lg text-danger"
+                    title="Remove this record"
+                    data-toggle="modal"
+                    data-target="#{{data.id}}">
+                  </i>
+                </span>
+              </td>
+            </tr>
+
+            <!-- Modal -->
+            <div class="modal fade" id="{{data.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Delete data</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <span class="text danger">Are you sure want to delete this data ?</span>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                    <a href="/delete-data/{{data.id}}" class="btn btn-danger">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of modal -->
+          {% endfor %}
+        </tbody>
+    </div>
+
+    <a href="/add-data" id="add-data">
+      <button class="btn btn-success float-right">Add new data<i class="fa fa-plus ml-2"></i></button>
+    </a>
+
+    {% include('partial/footer.html') %}
+  </body>
+</html>
