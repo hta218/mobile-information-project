@@ -5,7 +5,7 @@ import datetime
 
 app = Flask(__name__)
 
-app.secret_key = 'azmnamqka'
+app.config['SECRET_KEY'] = 'azmnamqka'
 
 mlab.connect()
 
@@ -116,4 +116,4 @@ def updatedata(data_id):
     return redirect('/admin')
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run()
